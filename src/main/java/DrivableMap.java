@@ -7,9 +7,7 @@
  * created the constructor for you already.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 class DrivableMap {
     HashMap<String, Drivable> drivable_map;
@@ -27,7 +25,15 @@ class DrivableMap {
      *       in drivable_map, then add the pair to drivable_map.
      *       Return true if the Drivable was added to drivable_map.
      */
-
+    public boolean addDrivable(String id, Drivable object) {
+        if (this.drivable_map.containsKey(id)) {
+            return false;
+        }
+        else {
+            this.drivable_map.put(id, object);
+            return true;
+        }
+    }
 
 
 
@@ -37,7 +43,15 @@ class DrivableMap {
      * You may want to use drivable_map.keys() or drivable_map.values() to
      * iterate through drivable_map.
      */
-
+    public boolean hasFasterThan(int speed) {
+        for (Map.Entry<String, Drivable> entry : this.drivable_map.entrySet()) {
+            int SPEED = entry.getValue().getMaxSpeed();
+            if (SPEED >= speed) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 
@@ -46,8 +60,24 @@ class DrivableMap {
      *       returns a List containing all of the Tradable items in
      *       drivable_map.
      */
+    public List<Tradable> getTradable() {
+        List<Tradable> ans = new ArrayList<>();
+        for (Drivable d : this.drivable_map.values()) {
+            if (d instanceof Tradable) {
+                ans.add((Tradable) d);
+            }
+        }
+        return ans;
+    }
 
-
+    public static void main(String[] args) {
+        DrivableMap testmap = new DrivableMap();
+        Horse h = new Horse();
+        Unicorn u = new Unicorn();
+        System.out.println(testmap.addDrivable("h", h));
+        testmap.addDrivable("u", u);
+        System.out.println(testmap.getTradable());
+    }
 
     
 }

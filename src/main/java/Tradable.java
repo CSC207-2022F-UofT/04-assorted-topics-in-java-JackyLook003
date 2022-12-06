@@ -1,4 +1,4 @@
-public interface Tradable {
+public interface Tradable extends Drivable {
     // This value is returned when a price is unavailable.
     int MISSING_PRICE = -1;
 
